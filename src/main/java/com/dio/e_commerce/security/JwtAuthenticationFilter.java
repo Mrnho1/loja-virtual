@@ -49,7 +49,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         var authToken = new UsernamePasswordAuthenticationToken(
                 username,
                 null,
-                List.of(new SimpleGrantedAuthority(role))
+                List.of(new SimpleGrantedAuthority("ROLE_" + role))
         );
 
         authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

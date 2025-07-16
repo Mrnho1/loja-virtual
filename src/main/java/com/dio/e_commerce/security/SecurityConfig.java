@@ -1,6 +1,5 @@
 package com.dio.e_commerce.security;
 
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,26 +29,29 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .cors(cors -> {})  // habilita CORS
-                .csrf(csrf -> csrf
-                                .disable() // ou desabilitar todo CSRF
-                        // se quiser desabilitar apenas pro H2: .ignoringRequestMatchers("/h2-console/**")
-                )
+                .csrf(csrf -> csrf.disable()) // desabilita CSRF
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/h2-console/**").permitAll()
+                        .requestMatchers(
+                                "/auth/**",
+                                "/swagger-ui.html",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/h2-console/**"
+                        ).permitAll()
+
                         .requestMatchers(HttpMethod.GET, "/products/**").permitAll()
+
+                        .requestMatchers("/users/**").hasRole("ADMIN") // ✅ Protege rota de usuários
+
                         .anyRequest().authenticated()
                 )
-                .headers(headers -> headers
-                        .frameOptions(frame -> frame.sameOrigin())
-                )
+                .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
-
-
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
@@ -64,7 +66,6 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    // Para autenticação via AuthenticationManager
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
