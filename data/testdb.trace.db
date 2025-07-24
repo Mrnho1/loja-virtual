@@ -180,3 +180,6 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/dio/e-commerc
 	at org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:286)
 	... 63 more
+2025-07-18 16:01:08.495715-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "PRODUCT" not found; SQL statement:
+DELETE FROM product [42102-232]
