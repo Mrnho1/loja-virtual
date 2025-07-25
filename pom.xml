@@ -71,6 +71,13 @@
 			<scope>runtime</scope>
 		</dependency>
 		-->
+		<!-- Postgre Database -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.7.3</version>
+		</dependency>
+
 
 		<!-- Lombok: reduz boilerplate com anotações (getters, setters, construtores, etc.) -->
 		<dependency>
