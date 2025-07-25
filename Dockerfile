@@ -18,7 +18,7 @@ RUN apt-get update && \
 WORKDIR /app
 
 # Copia o JAR gerado do estágio anterior
-COPY --from=builder /app/target/e-commerce-1.0.0.jar app.jar
+COPY --from=build /app/target/e-commerce-0.0.1-SNAPSHOT.jar app.jar
 
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
