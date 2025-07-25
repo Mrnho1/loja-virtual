@@ -1,12 +1,14 @@
-# Etapa de build: usa Maven com Java 17
-FROM maven:3.9.6-eclipse-temurin-17 AS build
-WORKDIR /app
-COPY . .
-RUN mvn clean package -DskipTests
+FROM ubuntu:lastest AS build
 
-# Etapa de runtime: usa JDK leve para rodar o .jar
-FROM eclipse-temurin:17-jdk
-WORKDIR /app
-COPY --from=build /app/target/e-commerce-0.0.1-SNAPSHOT.jar app.jar
+RUN apt-get update
+RUN apt-get install openjdk-17-jdk -y
+COPY . .
+
+RUN apt-get install maven -y
+RUN mvn clean install
+
 EXPOSE 8080
+
+COPY --from=build /target/e-commerce-1.0.0.jar app.jar
+
 ENTRYPOINT ["java", "-jar", "app.jar"]
