@@ -13,8 +13,11 @@ public class CorsConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**") // permite para todas as rotas
-                        .allowedOrigins("https://loja-virtual-front-6q8s.vercel.app")
+                registry.addMapping("/**")
+                        .allowedOrigins(
+                                "https://loja-virtual-front-6q8s.vercel.app",
+                                "http://localhost:4200"
+                        )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
