@@ -20,6 +20,7 @@ public interface ProductMapper {
         dto.setNome(product.getNome());
         dto.setDescricao(product.getDescricao());
         dto.setPreco(product.getPreco());
+        dto.setImageUrl(product.getImageUrl());
         return dto;
     }
 }

@@ -22,4 +22,6 @@ public class Product {
 
     @Column(nullable = false)
     private BigDecimal preco;
+
+    private String imageUrl;
 }

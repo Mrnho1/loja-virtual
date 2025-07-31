@@ -24,7 +24,14 @@ public class ProductController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<ProductDTO> create(@RequestBody ProductDTO dto) {
+        // O campo imageUrl já deve vir preenchido com a URL do Cloudinary
         return ResponseEntity.status(201).body(service.create(dto));
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductDTO dto) {
+        return ResponseEntity.ok(service.update(id, dto));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -32,12 +39,5 @@ public class ProductController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping("/{id}")
-    public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductDTO dto) {
-        ProductDTO updatedProduct = service.update(id, dto);
-        return ResponseEntity.ok(updatedProduct);
     }
 }

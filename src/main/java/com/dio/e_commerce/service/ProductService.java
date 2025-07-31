@@ -46,9 +46,9 @@ public class ProductService {
         existingProduct.setNome(dto.getNome());
         existingProduct.setDescricao(dto.getDescricao());
         existingProduct.setPreco(dto.getPreco());
+        existingProduct.setImageUrl(dto.getImageUrl());
 
         Product updatedProduct = repo.save(existingProduct);
         return mapper.toDTO(updatedProduct);
     }
-
 }
