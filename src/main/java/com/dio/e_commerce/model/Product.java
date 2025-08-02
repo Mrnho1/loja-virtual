@@ -2,8 +2,10 @@ package com.dio.e_commerce.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "products")
@@ -24,4 +26,7 @@ public class Product {
     private BigDecimal preco;
 
     private String imageUrl;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 }
